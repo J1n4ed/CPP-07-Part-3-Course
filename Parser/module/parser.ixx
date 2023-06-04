@@ -70,6 +70,8 @@ namespace jinx
 
 		data_not_found(std::string request, const std::map< std::string, std::any> & container)
 		{			
+			_request = request;
+
 			std::string::iterator it = std::find(request.begin(), request.end(), '.');
 			_section = std::string(request.begin(), it);
 
@@ -82,13 +84,13 @@ namespace jinx
 			}
 
 			// for some reason the none existent request is pushed into vector as last actual element wth
-			
+			/*
 			std::cout << "\nDEBUG: possbile lines: \n";
 			for (const auto& elem : _possibleLines)
 			{
 				std::cout << elem << '\n';
 			}
-			
+			*/
 
 			errorline = "\n> ERROR: data requested with <" + _request + "> not found in container!\n" +
 				"> Possible missmatch?";
@@ -311,6 +313,10 @@ namespace jinx
 		// constructors
 
 		parser() = delete;
+
+		parser(const parser&) = delete;
+
+		parser(parser&&) = delete;
 
 		parser(std::string filename)
 		{
